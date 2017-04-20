@@ -7,6 +7,7 @@ import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.templ.ThymeleafTemplateEngine;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 /**
  * @author Remus Sinorchian; created on 4/20/2017
@@ -18,6 +19,7 @@ public class HttpServerVerticle extends AbstractVerticle {
 
     public HttpServerVerticle() {
         this.engine = ThymeleafTemplateEngine.create();
+        configureThymeleafEngine(engine);
     }
 
     @Override
@@ -25,7 +27,7 @@ public class HttpServerVerticle extends AbstractVerticle {
         Router router = Router.router(vertx);
         router.route("/static/*").handler(StaticHandler.create("webapp/static"));
         router.route(HttpMethod.GET, "/").handler(rc -> {
-            engine.render(rc, "webapp/html/index.html", res -> {
+            engine.render(rc, "index", res -> {
                 if (res.succeeded()) {
                     rc.response().end(res.result());
                 } else {
@@ -35,5 +37,15 @@ public class HttpServerVerticle extends AbstractVerticle {
         });
         vertx.createHttpServer().requestHandler(router::accept).listen(Constants.PORT);
         LOGGER.info("Listening on http://localhost:" + Constants.PORT);
+    }
+
+    private void configureThymeleafEngine(ThymeleafTemplateEngine engine) {
+        ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+        templateResolver.setPrefix(Constants.TEMPLATE_PREFIX);
+        templateResolver.setSuffix(Constants.TEMPLATE_SUFFIX);
+        engine.getThymeleafTemplateEngine().setTemplateResolver(templateResolver);
+
+        CustomMessageResolver customMessageResolver = new CustomMessageResolver();
+        engine.getThymeleafTemplateEngine().setMessageResolver(customMessageResolver);
     }
 }
