@@ -6,4 +6,5 @@ package ro.rs.vertx.web;
 public final class Constants {
     public static final String TEMPLATE_PREFIX = "webapp/html/";
     public static final String TEMPLATE_SUFFIX = ".html";
+    public final static Integer PORT = 8081;
 }

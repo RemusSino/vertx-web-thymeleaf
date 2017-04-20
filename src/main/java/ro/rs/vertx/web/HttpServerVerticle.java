@@ -13,7 +13,6 @@ import io.vertx.ext.web.templ.ThymeleafTemplateEngine;
  */
 public class HttpServerVerticle extends AbstractVerticle {
     private final static Logger LOGGER = LoggerFactory.getLogger(HttpServerVerticle.class);
-    private final static int port = 8081;
 
     private ThymeleafTemplateEngine engine;
 
@@ -26,7 +25,7 @@ public class HttpServerVerticle extends AbstractVerticle {
         Router router = Router.router(vertx);
         router.route("/static/*").handler(StaticHandler.create("webapp/static"));
         router.route(HttpMethod.GET, "/").handler(rc -> {
-            engine.render(rc, "index", res -> {
+            engine.render(rc, "webapp/html/index.html", res -> {
                 if (res.succeeded()) {
                     rc.response().end(res.result());
                 } else {
@@ -34,7 +33,7 @@ public class HttpServerVerticle extends AbstractVerticle {
                 }
             });
         });
-        vertx.createHttpServer().requestHandler(router::accept).listen(port);
-        LOGGER.info("Listening on http://localhost:" + port);
+        vertx.createHttpServer().requestHandler(router::accept).listen(Constants.PORT);
+        LOGGER.info("Listening on http://localhost:" + Constants.PORT);
     }
 }
