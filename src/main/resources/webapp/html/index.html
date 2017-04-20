@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:with="lang=${#locale.language}"
+      th:lang="${lang}">
 
 <head>
 
@@ -65,8 +67,8 @@
 <header class="header-image">
     <div class="headline">
         <div class="container">
-            <h1>One Page Wonder</h1>
-            <h2>Will Knock Your Socks Off</h2>
+            <h1 th:text="#{index.h1}">One Page Wonder</h1>
+            <h2 th:text="#{index.h2}">Will Knock Your Socks Off</h2>
         </div>
     </div>
 </header>

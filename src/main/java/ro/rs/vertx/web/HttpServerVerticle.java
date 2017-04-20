@@ -10,7 +10,13 @@ import io.vertx.ext.web.templ.ThymeleafTemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 /**
- * @author Remus Sinorchian; created on 4/20/2017
+ * Simple http server developed with Vertx Web and Thymeleaf.
+ * The ClassLoaderTemplateResolver is used to resolve the Thymeleaf templates.
+ * The html files are in the resources/webapp/html folder.
+ * The message bundles are in the resources/webapp/i18n folder.
+ * The static css and js files are in the resources/webapp/static/* folder.
+ *
+ * @author Remus Sinorchian
  */
 public class HttpServerVerticle extends AbstractVerticle {
     private final static Logger LOGGER = LoggerFactory.getLogger(HttpServerVerticle.class);
