@@ -9,6 +9,8 @@ import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.templ.ThymeleafTemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
+import java.util.Calendar;
+
 /**
  * Simple http server developed with Vertx Web and Thymeleaf.
  * The ClassLoaderTemplateResolver is used to resolve the Thymeleaf templates.
@@ -33,6 +35,8 @@ public class HttpServerVerticle extends AbstractVerticle {
         Router router = Router.router(vertx);
         router.route("/static/*").handler(StaticHandler.create("webapp/static"));
         router.route(HttpMethod.GET, "/").handler(rc -> {
+            rc.put("today", Calendar.getInstance());
+            rc.put("number", 212.42);
             engine.render(rc, "index", res -> {
                 if (res.succeeded()) {
                     rc.response().end(res.result());

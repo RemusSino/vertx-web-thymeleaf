@@ -1,7 +1,7 @@
 package ro.rs.vertx.web;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 import org.thymeleaf.context.ITemplateContext;
 import org.thymeleaf.messageresolver.AbstractMessageResolver;
 import org.thymeleaf.util.StringUtils;
@@ -46,7 +46,7 @@ public class CustomMessageResolver extends AbstractMessageResolver {
         try {
             URL resourceUrl = this.getClass().getClassLoader().getResource(BUNDLES_DIR);
             if (resourceUrl == null) {
-                LOGGER.error("Unable to access the default bundle directory: {}", BUNDLES_DIR);
+                LOGGER.error("Unable to access the default bundle directory: " + BUNDLES_DIR);
                 return;
             }
 
@@ -59,11 +59,11 @@ public class CustomMessageResolver extends AbstractMessageResolver {
             InputStream iss = this.getClass().getClassLoader().getResourceAsStream
                     (DEFAULT_BUNDLE_FILE);
             if (iss == null) {
-                LOGGER.warn("Unable to find the default resource bundle: {}", DEFAULT_BUNDLE_FILE);
+                LOGGER.warn("Unable to find the default resource bundle: " + DEFAULT_BUNDLE_FILE);
             } else {
                 properties.load(iss);
                 localizedMessages.put(DEFAULT_BUNDLE_KEY, properties);
-                LOGGER.info("Loaded {} resource bundle", DEFAULT_BUNDLE_FILE);
+                LOGGER.info("Loaded " + DEFAULT_BUNDLE_FILE + " resource bundle");
             }
         } catch (IOException e) {
             LOGGER.error("IOException occurred:", e);
@@ -75,11 +75,10 @@ public class CustomMessageResolver extends AbstractMessageResolver {
     private void readResourceBundle(Path f) {
         try {
             if (!f.toFile().exists()) {
-                LOGGER.error("File {} does not exist", f.toFile().getAbsolutePath());
+                LOGGER.error("File " + f.toFile().getAbsolutePath() + " does not exist");
                 return;
             }
             Properties properties = new Properties();
-            // extract the {language} or {language}_{country} from the file name
             String languageCountry = f.getFileName()
                     .toString()
                     .substring(f.getFileName().toString().indexOf('_') + 1, f.getFileName()
@@ -92,7 +91,7 @@ public class CustomMessageResolver extends AbstractMessageResolver {
                     localizedMessages.put(languageCountry, properties);
                 }
             }
-            LOGGER.info("Loaded {} resource bundle", f.getFileName().toString());
+            LOGGER.info("Loaded " + f.getFileName().toString() + " resource bundle");
         } catch (IOException e) {
             LOGGER.error("IOException occurred:", e);
         }
