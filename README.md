@@ -1,4 +1,5 @@
 # vertx-web-thymeleaf
+####Summary
 Shows an example of a web server developed with Vertx and Thymeleaf.
 
 The ClassLoaderTemplateResolver is used to resolve the Thymeleaf templates.
@@ -12,4 +13,13 @@ The keys are taken from the file name and should be {language} or {language}_{co
 The values are instances of Properties class.
 The message bundles must have the name pattern "messages_{language}.properties"
 or "messages_{language}_{country}.properties" to be loaded by this resolver.
-The default message bundle must have the name "messages.properties"
+The default message bundle must have the name "messages.properties".
+
+####Run it
+1. run mvn install
+
+2. run the main class: MainApp
+
+####Vertx info
+Good resource with Vertx info/howto: http://escoffier.me/vertx-hol/
+
