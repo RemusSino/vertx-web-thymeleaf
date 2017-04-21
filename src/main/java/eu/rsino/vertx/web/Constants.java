@@ -1,4 +1,4 @@
-package ro.rs.vertx.web;
+package eu.rsino.vertx.web;
 
 /**
  * @author Remus Sinorchian

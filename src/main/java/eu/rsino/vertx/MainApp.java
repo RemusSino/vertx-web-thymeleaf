@@ -1,7 +1,7 @@
-package ro.rs.vertx;
+package eu.rsino.vertx;
 
+import eu.rsino.vertx.web.HttpServerVerticle;
 import io.vertx.core.Vertx;
-import ro.rs.vertx.web.HttpServerVerticle;
 
 /**
  * @author Remus Sinorchian

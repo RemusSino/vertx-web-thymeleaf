@@ -27,7 +27,7 @@
         <vertx.version>3.4.1</vertx.version>
         <thymeleaf.version>3.0.5.RELEASE</thymeleaf.version>
         <powermock.version>1.6.6</powermock.version>
-        <main.class>ro.rs.vertx.MainApp</main.class>
+        <main.class>eu.rsino.vertx.MainApp</main.class>
     </properties>
 
     <dependencyManagement>

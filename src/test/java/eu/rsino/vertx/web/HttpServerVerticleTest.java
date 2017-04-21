@@ -1,4 +1,4 @@
-package ro.rs.vertx.web;
+package eu.rsino.vertx.web;
 
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.vertx.core.Vertx;

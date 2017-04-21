@@ -1,4 +1,4 @@
-package ro.rs.vertx.web;
+package eu.rsino.vertx.web;
 
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpMethod;

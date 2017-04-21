@@ -1,4 +1,4 @@
-package ro.rs.vertx.web;
+package eu.rsino.vertx.web;
 
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
@@ -17,8 +17,6 @@ import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Properties;
-
-import static ro.rs.vertx.web.Constants.*;
 
 /**
  * This custom message resolver extends the {@link AbstractMessageResolver} class.
@@ -44,9 +42,9 @@ public class CustomMessageResolver extends AbstractMessageResolver {
     private void readMessageBundles() {
         localizedMessages = new LinkedHashMap<>();
         try {
-            URL resourceUrl = this.getClass().getClassLoader().getResource(BUNDLES_DIR);
+            URL resourceUrl = this.getClass().getClassLoader().getResource(Constants.BUNDLES_DIR);
             if (resourceUrl == null) {
-                LOGGER.error("Unable to access the default bundle directory: " + BUNDLES_DIR);
+                LOGGER.error("Unable to access the default bundle directory: " + Constants.BUNDLES_DIR);
                 return;
             }
 
@@ -57,13 +55,13 @@ public class CustomMessageResolver extends AbstractMessageResolver {
 
             Properties properties = new Properties();
             InputStream iss = this.getClass().getClassLoader().getResourceAsStream
-                    (DEFAULT_BUNDLE_FILE);
+                    (Constants.DEFAULT_BUNDLE_FILE);
             if (iss == null) {
-                LOGGER.warn("Unable to find the default resource bundle: " + DEFAULT_BUNDLE_FILE);
+                LOGGER.warn("Unable to find the default resource bundle: " + Constants.DEFAULT_BUNDLE_FILE);
             } else {
                 properties.load(iss);
-                localizedMessages.put(DEFAULT_BUNDLE_KEY, properties);
-                LOGGER.info("Loaded " + DEFAULT_BUNDLE_FILE + " resource bundle");
+                localizedMessages.put(Constants.DEFAULT_BUNDLE_KEY, properties);
+                LOGGER.info("Loaded " + Constants.DEFAULT_BUNDLE_FILE + " resource bundle");
             }
         } catch (IOException e) {
             LOGGER.error("IOException occurred:", e);
@@ -85,7 +83,7 @@ public class CustomMessageResolver extends AbstractMessageResolver {
                             .toString().indexOf('.'));
             if (f.toFile().exists()) {
                 InputStream iss = this.getClass().getClassLoader().getResourceAsStream
-                        (BUNDLES_DIR + "/" + f.toFile().getName());
+                        (Constants.BUNDLES_DIR + "/" + f.toFile().getName());
                 if (iss != null) {
                     properties.load(iss);
                     localizedMessages.put(languageCountry, properties);
@@ -114,7 +112,7 @@ public class CustomMessageResolver extends AbstractMessageResolver {
                 .filter(e -> e.getKey().contains(languageContry))
                 .findFirst()
                 .map(Map.Entry::getValue)
-                .orElseGet(() -> localizedMessages.get(DEFAULT_BUNDLE_KEY));
+                .orElseGet(() -> localizedMessages.get(Constants.DEFAULT_BUNDLE_KEY));
 
         if (messages != null && messages.get(key) != null)
             return messages.get(key).toString();
